@@ -11,7 +11,7 @@
 
 import React, {useRef} from "react";
 import "./App.css";
-import * as tf from "@tensorflow/tfjs";
+import  "@tensorflow/tfjs";
 // OLD MODEL
 import * as facemesh from "@tensorflow-models/facemesh";
 
@@ -28,10 +28,7 @@ function App() {
   //  Load posenet
   const runFacemesh = async () => {
     // OLD MODEL
-    //debugging
-    const tf = require('@tensorflow/tfjs');
-    require('@tensorflow-models/facemesh');
-    require('@tensorflow/tfjs-backend-wasm');
+    //debugging    
 
     const net = await facemesh.load({
       inputResolution: { width: 640, height: 480 },
