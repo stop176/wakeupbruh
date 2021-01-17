@@ -130,7 +130,7 @@ let counter = 0;
         console.log(eyeAspectRatio());
          counter++;
          console.log("counter =" + counter);
-         if(counter>=20){
+         if(counter>=15){
            console.log("ur eyes are closed");
            alert("WAKE UP BRUH");
           // wakeUpSet++;
