@@ -162,7 +162,7 @@ runFacemesh();
           }}
         />
 
-      <h1 style="color: white"> WAKE UP BRUH! </h1>
+     <h1 style ={{color: "white"}}> WAKE UP BRUH! </h1>
 
         <canvas
           ref={canvasRef}
