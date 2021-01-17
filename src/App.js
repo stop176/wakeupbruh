@@ -115,6 +115,7 @@ function App() {
           if(counter>=50){
             //audio.play();
             return;
+            alert("WAKE UP BRUH");
             
             }
         
@@ -161,7 +162,7 @@ runFacemesh();
           }}
         />
 
-      <h1> WAKE UP MF </h1>
+      <h1 style="color: white"> WAKE UP BRUH! </h1>
 
         <canvas
           ref={canvasRef}
