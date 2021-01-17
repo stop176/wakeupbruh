@@ -4,8 +4,18 @@ import  "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
-////import math from "/.math";
+import TimeComponent from './TimeComponent.js';
+//import duckArmy from './duck_army.mp3';
+
+
 function App() {
+  // Sound button
+    //const [play] = useSound(readyfoschoo);
+   // var audio = new Audio('are_you_ready.mp3');
+   // audio.play();
+
+
+  
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -30,7 +40,7 @@ function App() {
     return Math.sqrt(squarex+squarey);
 
   }
-let counter = 0;
+//let counter = 0;
   const detect = async (net) => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -51,7 +61,13 @@ let counter = 0;
       canvasRef.current.height = videoHeight;
 
 
+
       const face = await net.estimateFaces({input:video});
+
+      
+     // const face = 
+      await net.estimateFaces({input:video});
+    
 
 
       //console.log(face);
@@ -78,12 +94,21 @@ let counter = 0;
        
       }
       try {
-        if(eyeAspectRatio()<.20){ 
-         // console.log(eyeAspectRatio());
-          counter++;
-         // console.log(counter);
+        if(eyeAspectRatio()<.9){ 
+       //  console.log(eyeAspectRatio());
+          //x=eyeAspectRatio();
+         //if(x==100)
+          {return; }
+          //counter++;
+          //console.log(counter);
+          //console.log(x);
+
+
+          //if(counter>=100){audio.play();}
+        
+
         }
-        else counter = 0;
+       // else counter = 0;
       } catch {
         return;
       }
@@ -91,12 +116,17 @@ let counter = 0;
   };
 
 
-console.log(counter);
+
 runFacemesh();
   return (
 
+    // To plug in a new value, replace "get shit on" with whatever value
+
+
     <div className="App">
+      <TimeComponent />
       <Logo />
+      <p> Detecting drowsiness and keeping you awake when you need it most </p>
       <header className="App-header">
         <Webcam
           ref={webcamRef}
@@ -130,8 +160,11 @@ runFacemesh();
           }}
         />
       </header>
+
+
     </div>
   );
 }
+     // <BoopButton />
 
 export default App;

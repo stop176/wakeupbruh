@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
 
+*{
+  margin: 0;
+}
+
 .App {
   text-align: center;
 }
@@ -51,9 +55,13 @@ body {
 
 h1 {
   position: fixed;
-  color: white;
+  color: black;
 }
 
 svg {
-  padding: 20px;
+  margin-top: 2vw;
+}
+
+p {
+  margin-bottom: 2vw;
 }
