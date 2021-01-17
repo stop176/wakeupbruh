@@ -5,13 +5,16 @@ import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
 import TimeComponent from './TimeComponent.js';
+import useSound from 'use-sound';
+import duckArmy from './duck_army.mp3';
 
 function App() {
 
-<<<<<<< HEAD
-=======
-  
->>>>>>> f1368d2... eye ratio works
+  const BoopButton = () => {
+  const [play] = useSound(duckArmy);
+  return <button onClick={play}>Boop!</button>;
+};
+
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -48,32 +51,17 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
-<<<<<<< HEAD
 
       const face = await net.estimateFaces({input:video});
       console.log(face);
-=======
-      
-     // const face = 
-      await net.estimateFaces({input:video});
-     // console.log(face);
-     var nose = net[140]
-    
-     console.log(nose);
-
->>>>>>> f1368d2... eye ratio works
 
 
     }
   };
 
+runFacemesh();
 
-  runFacemesh();
   return (
-
-    // To plug in a new value, replace "get shit on" with whatever value
-
-
     <div className="App">
       <TimeComponent />
       <Logo />
@@ -110,7 +98,11 @@ function App() {
             height: 480,
           }}
         />
+
+
       </header>
+      <BoopButton />
+
     </div>
   );
 }
