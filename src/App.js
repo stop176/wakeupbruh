@@ -5,8 +5,8 @@ import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
 import TimeComponent from './TimeComponent.js';
-import useSound from 'use-sound';
-import duckArmy from './duck_army.mp3';
+//import useSound from 'use-sound';
+//import duckArmy from './duck_army.mp3';
 //import Button from "./Button.js";
 //import Sound from "./Sound";
 
@@ -24,8 +24,8 @@ function App() {
  // let wakeUpSet = 1;
 
   const Butt = () => {
-    const ref = useRef(null);
-    const [play] = useSound(duckArmy);
+    //const ref = useRef(null);
+    //const [play] = useSound(duckArmy);
 
     // useEffect(() => {
     //   setTimeout(() => {
@@ -33,11 +33,11 @@ function App() {
     //   }, 5000); //miliseconds
     // }, []);
 
-    return (
-      <button ref={ref} onClick={play}>
-        TEST
-      </button>
-    );
+   // return (
+     // <button ref={ref} onClick={play}>
+     //   TEST
+    //  </button>
+    //);
 };
 
   //const BoopButton = () => {
