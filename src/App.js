@@ -5,7 +5,10 @@ import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
 import TimeComponent from './TimeComponent.js';
+//import useSound from 'use-sound';
 //import duckArmy from './duck_army.mp3';
+//import readyfoschoo from './are_you_ready.mp3';
+
 
 
 function App() {
