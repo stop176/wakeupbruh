@@ -8,7 +8,7 @@ class TimeComponent extends Component {
        super(props);
  
        this.state={
-           headerText:'-1'
+           headerText:''
        }
    }
  
