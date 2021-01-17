@@ -5,30 +5,43 @@ import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
 import TimeComponent from './TimeComponent.js';
+//import useSound from 'use-sound';
+//import duckArmy from './duck_army.mp3';
+//import readyfoschoo from './are_you_ready.mp3';
 
 function App() {
+  // Sound button
+    //const [play] = useSound(readyfoschoo);
+   // var audio = new Audio('are_you_ready.mp3');
+   // audio.play();
 
-<<<<<<< HEAD
-=======
+
   
->>>>>>> f1368d2... eye ratio works
-
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
   //  Load posenet
   const runFacemesh = async () => {
-    // OLD MODEL
-    //debugging
-
 
     // NEW MODEL
     const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     setInterval(() => {
       detect(net);
-    }, 10);
+    }, 50);
   };
 
+  
+
+  const getPointDist = (eyePoint1, eyePoint2) => {
+
+    let xdiff = eyePoint1[0]-eyePoint2[0];
+    let ydiff = eyePoint1[1]-eyePoint2[1];
+    let squarex = Math.pow(xdiff,2);
+    let squarey = Math.pow(ydiff, 2);
+    return Math.sqrt(squarex+squarey);
+
+  }
+let counter = 0;
   const detect = async (net) => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -48,27 +61,58 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
-<<<<<<< HEAD
+
 
       const face = await net.estimateFaces({input:video});
-      console.log(face);
-=======
+
       
      // const face = 
       await net.estimateFaces({input:video});
-     // console.log(face);
-     var nose = net[140]
     
-     console.log(nose);
-
->>>>>>> f1368d2... eye ratio works
 
 
+      //console.log(face);
+      const eyeAspectRatio = () =>{
+      try {
+        let A = getPointDist(face[0].annotations.leftEyeUpper0[4], face[0].annotations.leftEyeLower0[5])
+        let B = getPointDist(face[0].annotations.leftEyeUpper0[3], face[0].annotations.leftEyeLower0[4])
+        let C = getPointDist(face[0].annotations.leftEyeUpper0[2], face[0].annotations.leftEyeLower0[3])
+        let wideLeft = getPointDist(face[0].annotations.leftEyeLower0[0], face[0].annotations.leftEyeLower0[8])
+
+        let D = getPointDist(face[0].annotations.rightEyeUpper0[2], face[0].annotations.rightEyeLower0[3])
+        let E = getPointDist(face[0].annotations.rightEyeUpper0[3], face[0].annotations.rightEyeLower0[4])
+        let F = getPointDist(face[0].annotations.rightEyeUpper0[4], face[0].annotations.rightEyeLower0[5])
+        let wideRight = getPointDist(face[0].annotations.rightEyeLower0[0], face[0].annotations.rightEyeLower0[8])
+    
+    
+       let leftRatio = (A+B+C)/(3*wideLeft);
+       let rightRatio = (D+E+F)/(3*wideRight);
+
+       return (leftRatio+rightRatio)/2;
+      } catch  {
+        return;
+      }
+       
+      }
+      try {
+        if(eyeAspectRatio()<.20){ 
+          console.log(eyeAspectRatio());
+          counter++;
+          console.log(counter);
+          //if(counter>=100){audio.play();}
+        
+
+        }
+        else counter = 0;
+      } catch {
+        return;
+      }
     }
   };
 
 
-  runFacemesh();
+
+runFacemesh();
   return (
 
     // To plug in a new value, replace "get shit on" with whatever value
@@ -111,9 +155,11 @@ function App() {
           }}
         />
       </header>
+
+
     </div>
   );
 }
-
+     // <BoopButton />
 
 export default App;
