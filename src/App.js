@@ -4,7 +4,7 @@ import  "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
-//import math from "/.math";
+////import math from "/.math";
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -16,7 +16,7 @@ function App() {
     const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     setInterval(() => {
       detect(net);
-    }, 10);
+    }, 50);
   };
 
   
@@ -30,7 +30,7 @@ function App() {
     return Math.sqrt(squarex+squarey);
 
   }
-
+let counter = 0;
   const detect = async (net) => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -68,8 +68,8 @@ function App() {
         let wideRight = getPointDist(face[0].annotations.rightEyeLower0[0], face[0].annotations.rightEyeLower0[8])
     
     
-       let leftRatio = (A+B+C)/(3.0+wideLeft);
-       let rightRatio = (D+E+F)/(3.0+wideRight);
+       let leftRatio = (A+B+C)/(3*wideLeft);
+       let rightRatio = (D+E+F)/(3*wideRight);
 
        return (leftRatio+rightRatio)/2;
       } catch  {
@@ -78,7 +78,12 @@ function App() {
        
       }
       try {
-        console.log(eyeAspectRatio());
+        if(eyeAspectRatio()<.20){ 
+         // console.log(eyeAspectRatio());
+          counter++;
+         // console.log(counter);
+        }
+        else counter = 0;
       } catch {
         return;
       }
@@ -86,7 +91,7 @@ function App() {
   };
 
 
-
+console.log(counter);
 runFacemesh();
   return (
 
