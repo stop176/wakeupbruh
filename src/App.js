@@ -8,6 +8,10 @@ import TimeComponent from './TimeComponent.js';
 
 function App() {
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> f1368d2... eye ratio works
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -44,15 +48,27 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
+<<<<<<< HEAD
 
       const face = await net.estimateFaces({input:video});
       console.log(face);
+=======
+      
+     // const face = 
+      await net.estimateFaces({input:video});
+     // console.log(face);
+     var nose = net[140]
+    
+     console.log(nose);
+
+>>>>>>> f1368d2... eye ratio works
 
 
     }
   };
 
-runFacemesh();
+
+  runFacemesh();
   return (
 
     // To plug in a new value, replace "get shit on" with whatever value
