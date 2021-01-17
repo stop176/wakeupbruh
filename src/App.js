@@ -1,11 +1,9 @@
-
-
 import React, {useRef} from "react";
 import "./App.css";
 import  "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
-
+import { ReactComponent as Logo } from './wakeupbruh.svg';
 
 function App() {
   const webcamRef = useRef(null);
@@ -14,9 +12,9 @@ function App() {
   //  Load posenet
   const runFacemesh = async () => {
     // OLD MODEL
-    //debugging    
+    //debugging
 
-    
+
     // NEW MODEL
     const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
     setInterval(() => {
@@ -43,17 +41,19 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
-      
+
       const face = await net.estimateFaces({input:video});
       console.log(face);
 
-     
+
     }
   };
 
 runFacemesh();
   return (
+
     <div className="App">
+      <Logo />
       <header className="App-header">
         <Webcam
           ref={webcamRef}
@@ -69,6 +69,8 @@ runFacemesh();
             height: 480,
           }}
         />
+
+      <h1> WAKE UP MF </h1>
 
         <canvas
           ref={canvasRef}

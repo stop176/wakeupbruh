@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
 .App {
   text-align: center;
 }
@@ -14,7 +16,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #F6F7FF;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +37,23 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* schtuff i added */
+
+canvas {
+  border: 8px solid #E8EAFF;
+}
+
+body {
+  font-family: 'Josefin Sans', cursive;
+}
+
+h1 {
+  position: fixed;
+  color: white;
+}
+
+svg {
+  padding: 20px;
 }
