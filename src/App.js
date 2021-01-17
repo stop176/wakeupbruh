@@ -4,8 +4,11 @@ import  "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
+import TimeComponent from './TimeComponent.js';
 
 function App() {
+
+
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -52,8 +55,13 @@ function App() {
 runFacemesh();
   return (
 
+    // To plug in a new value, replace "get shit on" with whatever value
+
+
     <div className="App">
+      <TimeComponent />
       <Logo />
+      <p> Detecting drowsiness and keeping you awake when you need it most </p>
       <header className="App-header">
         <Webcam
           ref={webcamRef}
@@ -90,5 +98,6 @@ runFacemesh();
     </div>
   );
 }
+
 
 export default App;
