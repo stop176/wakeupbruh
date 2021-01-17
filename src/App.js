@@ -23,7 +23,7 @@ function App() {
   // let wakeUp = false;
  // let wakeUpSet = 1;
 
-  const Butt = () => {
+  //const Butt = () => {
     //const ref = useRef(null);
     //const [play] = useSound(duckArmy);
 
@@ -38,7 +38,7 @@ function App() {
      //   TEST
     //  </button>
     //);
-};
+//};
 
   //const BoopButton = () => {
    // const ref = useRef(null);
@@ -189,7 +189,6 @@ runFacemesh();
          }}
        />
      </header>
-     <Butt />
    </div>
 
  );
