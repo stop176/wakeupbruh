@@ -155,7 +155,7 @@ runFacemesh();
    <div className="App">
      <TimeComponent />
      <Logo />
-     <p> Detecting drowsiness and keeping you awake when you need it most </p>
+     <p> Detecting drowsiness and keeping you awake when you need it most. Act sleepy to try it out! </p>
      <header className="App-header">
        <Webcam
          ref={webcamRef}
