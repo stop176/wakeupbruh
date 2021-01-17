@@ -126,7 +126,7 @@ let counter = 0;
 
      }
      try {
-       if(eyeAspectRatio()<.30){
+       if(eyeAspectRatio()<.25){
         console.log(eyeAspectRatio());
          counter++;
          console.log("counter =" + counter);
