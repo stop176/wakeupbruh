@@ -10,7 +10,6 @@ import TimeComponent from './TimeComponent.js';
 //import readyfoschoo from './are_you_ready.mp3';
 
 
-
 function App() {
   // Sound button
     //const [play] = useSound(readyfoschoo);
