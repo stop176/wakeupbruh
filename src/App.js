@@ -5,19 +5,27 @@ import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
 import TimeComponent from './TimeComponent.js';
+//import audio from './are_you_ready.mp3'
 //import useSound from 'use-sound';
 //import duckArmy from './duck_army.mp3';
 //import readyfoschoo from './are_you_ready.mp3';
+
+
 
 
 function App() {
   // Sound button
     //const [play] = useSound(readyfoschoo);
    // var audio = new Audio('are_you_ready.mp3');
-   // audio.play();
-
-
+    
+   
   
+///////
+
+    
+
+
+  /////
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -42,7 +50,7 @@ function App() {
     return Math.sqrt(squarex+squarey);
 
   }
-//let counter = 0;
+  let counter = 0;
   const detect = async (net) => {
     if (
       typeof webcamRef.current !== "undefined" &&
@@ -99,18 +107,20 @@ function App() {
         if(eyeAspectRatio()<.9){ 
        //  console.log(eyeAspectRatio());
           //x=eyeAspectRatio();
-         //if(x==100)
-          {return; }
-          //counter++;
-          //console.log(counter);
+          counter++;
+          console.log(counter);
           //console.log(x);
 
 
-          //if(counter>=100){audio.play();}
+          if(counter>=50){
+            //audio.play();
+            return;
+            
+            }
         
 
         }
-       // else counter = 0;
+        else counter = 0;
       } catch {
         return;
       }
@@ -120,12 +130,18 @@ function App() {
 
 
 runFacemesh();
+
   return (
 
+
+    
     // To plug in a new value, replace "get shit on" with whatever value
 
 
     <div className="App">
+      <button>
+        TEST
+      </button>   
       <TimeComponent />
       <Logo />
       <p> Detecting drowsiness and keeping you awake when you need it most </p>
@@ -162,7 +178,7 @@ runFacemesh();
           }}
         />
       </header>
-
+        
 
     </div>
   );
