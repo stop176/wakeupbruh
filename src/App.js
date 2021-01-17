@@ -4,9 +4,10 @@ import  "@tensorflow/tfjs";
 import * as facemesh from "@tensorflow-models/face-landmarks-detection";
 import Webcam from "react-webcam";
 import { ReactComponent as Logo } from './wakeupbruh.svg';
-
+import TimeComponent from './TimeComponent.js';
 
 function App() {
+
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -54,10 +55,11 @@ function App() {
 runFacemesh();
   return (
 
-    <div className="App">
-      // To plug in a new value, replace "get shit on" with whatever value
-      <Status status={"get shit on"} />,
+    // To plug in a new value, replace "get shit on" with whatever value
 
+
+    <div className="App">
+      <TimeComponent />
       <Logo />
       <p> Detecting drowsiness and keeping you awake when you need it most </p>
       <header className="App-header">
@@ -97,20 +99,5 @@ runFacemesh();
   );
 }
 
-// Gives the option to change the value of "status"
-  function Status(props) {
-    return (
-      <div>
-        <h2>It is {props.status}.</h2>
-      </div>
-    );
-  }
-
-  // This shit doesn't work lmao
-  function changeVarValue() {
-    var array = [1, 2, 3]
-    var x = 0;
-    setInterval(function(){ return array[x+=1]; }, 1000);
-  }
 
 export default App;
