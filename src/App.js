@@ -83,10 +83,7 @@ function App() {
         } catch  { return; }
       }
 
-  if(x==0){ 
-    alert("PRESS TO UNMUTE SOUNDS");
-    x=1;
-  }
+  
      
  
       try {
@@ -94,6 +91,10 @@ function App() {
             console.log(eyeAspectRatio());
             counter++;
             console.log("counter =" + counter);
+            if(x==0){ 
+              alert("PRESS TO UNMUTE SOUNDS");
+              x=1;
+            }
             if(counter>=15){
               doWakeUpSequence();
             }
