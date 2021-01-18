@@ -97,6 +97,7 @@ function App() {
       }
     }
   };
+  alert("PRESS TO UNMUTE SOUNDS");
 
   const doWakeUpSequence = () => {
     if(!isAwake) {
@@ -116,6 +117,7 @@ function App() {
   }
 
   runFacemesh();
+
 
   return (
 
