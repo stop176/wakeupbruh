@@ -10,190 +10,158 @@ import TimeComponent from './TimeComponent.js';
 //import Button from "./Button.js";
 //import Sound from "./Sound";
 
-//import readyfoschoo from './are_you_ready.mp3';
+import readyfoschoo from './are_you_ready.mp3';
 
 function App() {
 
-  // Sound button
-  // function getShitOn() {
-  //   alert("wake up you bitch");
-  // }
-
-
-  // let wakeUp = false;
- // let wakeUpSet = 1;
-
-  //const Butt = () => {
-    //const ref = useRef(null);
-    //const [play] = useSound(duckArmy);
-
-    // useEffect(() => {
-    //   setTimeout(() => {
-    //     ref.current.click();
-    //   }, 5000); //miliseconds
-    // }, []);
-
-   // return (
-     // <button ref={ref} onClick={play}>
-     //   TEST
-    //  </button>
-    //);
-//};
-
-  //const BoopButton = () => {
-   // const ref = useRef(null);
-   // useSound(duckArmy);
-   // return <Button />;
- // };
-
-
-
+  let isAwake = false;
+  const audio = new Audio(readyfoschoo);
+  const timeUntilResetWakeup = 10000; // 1 minute
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
- //  Load posenet
- const runFacemesh = async () => {
+  //  Load posenet
+  const runFacemesh = async () => {
 
-   // NEW MODEL
-   const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
-   setInterval(() => {
-     detect(net);
-   }, 50);
- };
+    // NEW MODEL
+    const net = await facemesh.load(facemesh.SupportedPackages.mediapipeFacemesh);
+    setInterval(() => {
+      detect(net);
+    }, 50);
+  };
 
+  const getPointDist = (eyePoint1, eyePoint2) => {
+    let xdiff = eyePoint1[0]-eyePoint2[0];
+    let ydiff = eyePoint1[1]-eyePoint2[1];
+    let squarex = Math.pow(xdiff,2);
+    let squarey = Math.pow(ydiff, 2);
+    return Math.sqrt(squarex+squarey);
+  }
 
- const getPointDist = (eyePoint1, eyePoint2) => {
+  let counter = 0;
+  const detect = async (net) => {
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null &&
+      webcamRef.current.video.readyState === 4
+    ) {
+      // Get Video Properties
+      const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
 
-   let xdiff = eyePoint1[0]-eyePoint2[0];
-   let ydiff = eyePoint1[1]-eyePoint2[1];
-   let squarex = Math.pow(xdiff,2);
-   let squarey = Math.pow(ydiff, 2);
-   return Math.sqrt(squarex+squarey);
+      // Set video width
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
 
- }
-let counter = 0;
- const detect = async (net) => {
-   if (
-     typeof webcamRef.current !== "undefined" &&
-     webcamRef.current !== null &&
-     webcamRef.current.video.readyState === 4
-   ) {
-     // Get Video Properties
-     const video = webcamRef.current.video;
-     const videoWidth = webcamRef.current.video.videoWidth;
-     const videoHeight = webcamRef.current.video.videoHeight;
+      // Set canvas width
+      canvasRef.current.width = videoWidth;
+      canvasRef.current.height = videoHeight;
 
-     // Set video width
-     webcamRef.current.video.width = videoWidth;
-     webcamRef.current.video.height = videoHeight;
+      const face = await net.estimateFaces({input:video});
 
-     // Set canvas width
-     canvasRef.current.width = videoWidth;
-     canvasRef.current.height = videoHeight;
+      //console.log(face);
+      const eyeAspectRatio = () => {
+        try {
+          let A = getPointDist(face[0].annotations.leftEyeUpper0[4], face[0].annotations.leftEyeLower0[5])
+          let B = getPointDist(face[0].annotations.leftEyeUpper0[3], face[0].annotations.leftEyeLower0[4])
+          let C = getPointDist(face[0].annotations.leftEyeUpper0[2], face[0].annotations.leftEyeLower0[3])
+          let wideLeft = getPointDist(face[0].annotations.leftEyeLower0[0], face[0].annotations.leftEyeLower0[8])
 
-
-
-     const face = await net.estimateFaces({input:video});
-
-
-    // const face =
-     await net.estimateFaces({input:video});
-
-
-
-     //console.log(face);
-     const eyeAspectRatio = () =>{
-     try {
-       let A = getPointDist(face[0].annotations.leftEyeUpper0[4], face[0].annotations.leftEyeLower0[5])
-       let B = getPointDist(face[0].annotations.leftEyeUpper0[3], face[0].annotations.leftEyeLower0[4])
-       let C = getPointDist(face[0].annotations.leftEyeUpper0[2], face[0].annotations.leftEyeLower0[3])
-       let wideLeft = getPointDist(face[0].annotations.leftEyeLower0[0], face[0].annotations.leftEyeLower0[8])
-
-       let D = getPointDist(face[0].annotations.rightEyeUpper0[2], face[0].annotations.rightEyeLower0[3])
-       let E = getPointDist(face[0].annotations.rightEyeUpper0[3], face[0].annotations.rightEyeLower0[4])
-       let F = getPointDist(face[0].annotations.rightEyeUpper0[4], face[0].annotations.rightEyeLower0[5])
-       let wideRight = getPointDist(face[0].annotations.rightEyeLower0[0], face[0].annotations.rightEyeLower0[8])
+          let D = getPointDist(face[0].annotations.rightEyeUpper0[2], face[0].annotations.rightEyeLower0[3])
+          let E = getPointDist(face[0].annotations.rightEyeUpper0[3], face[0].annotations.rightEyeLower0[4])
+          let F = getPointDist(face[0].annotations.rightEyeUpper0[4], face[0].annotations.rightEyeLower0[5])
+          let wideRight = getPointDist(face[0].annotations.rightEyeLower0[0], face[0].annotations.rightEyeLower0[8])
 
 
-      let leftRatio = (A+B+C)/(3*wideLeft);
-      let rightRatio = (D+E+F)/(3*wideRight);
+          let leftRatio = (A+B+C)/(3*wideLeft);
+          let rightRatio = (D+E+F)/(3*wideRight);
 
-      return (leftRatio+rightRatio)/2;
-     } catch  {
-       return;
-     }
+          return (leftRatio+rightRatio)/2;
+        } catch  { return; }
+      }
 
-     }
-     try {
-       if(eyeAspectRatio()<.25){
-        console.log(eyeAspectRatio());
-         counter++;
-         console.log("counter =" + counter);
-         if(counter>=15){
-           console.log("ur eyes are closed");
-           alert("WAKE UP BRUH");
-          // wakeUpSet++;
+      try {
+        if(eyeAspectRatio()<.25) {
+            console.log(eyeAspectRatio());
+            counter++;
+            console.log("counter =" + counter);
+            if(counter>=15){
+              doWakeUpSequence();
+            }
         }
+        else counter = 0;
+      } catch {
+        return;
+      }
+    }
+  };
+
+  const doWakeUpSequence = () => {
+    if(!isAwake) {
+      console.log("ur eyes are closed");
+      audio.play();
+      alert("WAKE UP BRUH");
+      isAwake = true;
+      resetWakeup();
+    }
+  }
+
+  const resetWakeup = () => {
+    setTimeout(() => {
+      console.log('resetting wakeup flag!')
+      isAwake = false;
+    }, timeUntilResetWakeup);
+  }
+
+  runFacemesh();
+
+  return (
+
+    // To plug in a new value, replace "get shit on" with whatever value
+    <div className="App">
+      <TimeComponent />
+      <Logo />
+      <p> Detecting drowsiness and keeping you awake when you need it most. Act sleepy to try it out! </p>
+
+      <header className="App-header">
+      
+        <Webcam
+          ref={webcamRef}
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            zindex: 9,
+            width: 640,
+            height: 480,
+          }}
+        />
 
 
-       }
-       else counter = 0;
-     } catch {
-       return;
-     }
-   }
- };
+        <canvas
+          ref={canvasRef}
+          style={{
+            position: "absolute",
+            marginLeft: "auto",
+            marginRight: "auto",
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            zindex: 9,
+            width: 640,
+            height: 480,
+          }}
+        />
+      </header>
+    </div>
 
-runFacemesh();
-
- return (
-
-   // To plug in a new value, replace "get shit on" with whatever value
-
-
-   <div className="App">
-     <TimeComponent />
-     <Logo />
-     <p> Detecting drowsiness and keeping you awake when you need it most. Act sleepy to try it out! </p>
-     <header className="App-header">
-       <Webcam
-         ref={webcamRef}
-         style={{
-           position: "absolute",
-           marginLeft: "auto",
-           marginRight: "auto",
-           left: 0,
-           right: 0,
-           textAlign: "center",
-           zindex: 9,
-           width: 640,
-           height: 480,
-         }}
-       />
-
-
-       <canvas
-         ref={canvasRef}
-         style={{
-           position: "absolute",
-           marginLeft: "auto",
-           marginRight: "auto",
-           left: 0,
-           right: 0,
-           textAlign: "center",
-           zindex: 9,
-           width: 640,
-           height: 480,
-         }}
-       />
-     </header>
-   </div>
-
- );
+  );
 }
-//<!--<h1 style ={{color: "white"}}> WAKE UP BRUH! </h1>
-
 
 export default App;
 
