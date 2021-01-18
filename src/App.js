@@ -14,6 +14,7 @@ import readyfoschoo from './are_you_ready.mp3';
 
 function App() {
 
+  let x = 0;
   let isAwake = false;
   const audio = new Audio(readyfoschoo);
   const timeUntilResetWakeup = 10000; // 1 minute
@@ -82,6 +83,12 @@ function App() {
         } catch  { return; }
       }
 
+  if(x==0){ 
+    alert("PRESS TO UNMUTE SOUNDS");
+    x=1;
+  }
+     
+ 
       try {
         if(eyeAspectRatio()<.25) {
             console.log(eyeAspectRatio());
@@ -97,7 +104,6 @@ function App() {
       }
     }
   };
-  alert("PRESS TO UNMUTE SOUNDS");
 
   const doWakeUpSequence = () => {
     if(!isAwake) {
